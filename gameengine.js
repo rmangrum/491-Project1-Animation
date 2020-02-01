@@ -1,3 +1,13 @@
+/* Robert Mangrum
+ * TCSS 491 Winter 20
+ * Assignment 1 - Animation
+ * 
+ * Sprites sourced from https://www.spriters-resource.com/snes/gundamwing/sheet/13904/
+ * and modified through piskel.
+ * 
+ * assetmanager and gameengine modified from Seth Ladd as covered in class
+ */
+
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -8,6 +18,23 @@ window.requestAnimFrame = (function () {
                 window.setTimeout(callback, 1000 / 60);
             };
 })();
+
+
+function Timer() {
+    this.gameTime = 0;
+    this.maxStep = 0.05;
+    this.wallLastTimestamp = 0;
+}
+
+Timer.prototype.tick = function () {
+    var wallCurrent = Date.now();
+    var wallDelta = (wallCurrent - this.wallLastTimestamp) / 1000;
+    this.wallLastTimestamp = wallCurrent;
+
+    var gameDelta = Math.min(wallDelta, this.maxStep);
+    this.gameTime += gameDelta;
+    return gameDelta;
+}
 
 function GameEngine() {
     this.entities = [];
@@ -63,21 +90,8 @@ GameEngine.prototype.loop = function () {
     this.draw();
 }
 
-function Timer() {
-    this.gameTime = 0;
-    this.maxStep = 0.05;
-    this.wallLastTimestamp = 0;
-}
 
-Timer.prototype.tick = function () {
-    var wallCurrent = Date.now();
-    var wallDelta = (wallCurrent - this.wallLastTimestamp) / 1000;
-    this.wallLastTimestamp = wallCurrent;
 
-    var gameDelta = Math.min(wallDelta, this.maxStep);
-    this.gameTime += gameDelta;
-    return gameDelta;
-}
 
 function Entity(game, x, y) {
     this.game = game;
