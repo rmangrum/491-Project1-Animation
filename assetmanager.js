@@ -1,3 +1,13 @@
+/* Robert Mangrum
+ * TCSS 491 Winter 20
+ * Assignment 1 - Animation
+ * 
+ * Sprites sourced from https://www.spriters-resource.com/snes/gundamwing/sheet/13904/
+ * and modified through piskel.
+ * 
+ * assetmanager and gameengine modified from Seth Ladd as covered in class
+ */
+
 function AssetManager() {
     this.successCount = 0;
     this.errorCount = 0;
